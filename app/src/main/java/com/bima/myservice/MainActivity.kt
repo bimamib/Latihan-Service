@@ -1,5 +1,6 @@
 package com.bima.myservice
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bima.myservice.databinding.ActivityMainBinding
@@ -12,5 +13,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val serviceIntent = Intent(this, MyBackgroundService::class.java)
+        binding.btnStartBackgroundService.setOnClickListener {
+            startService(serviceIntent)
+        }
+        binding.btnStopBackgroundService.setOnClickListener {
+            stopService(serviceIntent)
+        }
     }
 }
