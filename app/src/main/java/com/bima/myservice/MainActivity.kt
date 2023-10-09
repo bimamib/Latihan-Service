@@ -29,12 +29,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getNumberFromService() {
-        boundService.numberLiveData.observe(this) { number ->
-            binding.tvBoundServiceNumber.text = number.toString()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -66,6 +60,20 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnStopBoundService.setOnClickListener {
             unbindService(connection)
+        }
+    }
+
+    private fun getNumberFromService() {
+        boundService.numberLiveData.observe(this) { number ->
+            binding.tvBoundServiceNumber.text = number.toString()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (boundStatus) {
+            unbindService(connection)
+            boundStatus = false
         }
     }
 }
