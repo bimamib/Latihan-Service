@@ -59,5 +59,13 @@ class MainActivity : AppCompatActivity() {
         binding.btnStopForegroundService.setOnClickListener {
             stopService(foregroundServiceIntent)
         }
+
+        val boundServiceIntent = Intent(this, MyBoundService::class.java)
+        binding.btnStartBoundService.setOnClickListener {
+            bindService(boundServiceIntent, connection, BIND_AUTO_CREATE)
+        }
+        binding.btnStopBoundService.setOnClickListener {
+            unbindService(connection)
+        }
     }
 }
