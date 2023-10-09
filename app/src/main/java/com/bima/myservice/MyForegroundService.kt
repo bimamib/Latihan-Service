@@ -66,12 +66,17 @@ class MyForegroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        val notification = buildNotification()
+
+        startForeground(NOTIFICATION_ID, notification)
+
         Log.d(TAG, "Service dijalankan...")
         serviceScope.launch {
             for (i in 1..50) {
                 delay(1000)
                 Log.d(TAG, "Do Something $i")
             }
+            stopForeground(true);
             stopSelf()
             Log.d(TAG, "Service dihentikan")
         }
